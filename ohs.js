@@ -7,6 +7,7 @@ var fs            = require('fs');
 
 var app = express();
 
+var overpass_timeout = 60;
 var project_name   = 'opening_hours_server.js';
 var repository_url = 'https://github.com/ypid/' + project_name;
 var bbox_url_parms = ['s', 'w', 'n', 'e'];
@@ -68,6 +69,9 @@ function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
                 };
                 if (typeof worst_problem === 'undefined' || problem > worst_problem) {
                     worst_problem = problem;
+                }
+                if (debug && overpass_answer.elements[i].tag_problems[key].eval_notes) {
+                    console.log(overpass_answer.elements[i].tag_problems[key].eval_notes);
                 }
             }
         }
@@ -134,7 +138,7 @@ app.get('/api/oh_interpreter', function(req, res) {
         components.push("way['" + key + "'];");
     }
 
-    var OverpassQL = '[out:json][timeout:3][bbox:' + bbox_coordinates.join(',') + '];(' + components.join('') + ');out body center;';
+    var OverpassQL = '[out:json][timeout:' + overpass_timeout + '][bbox:' + bbox_coordinates.join(',') + '];(' + components.join('') + ');out body center;';
 
     var overpass_answer;
     if (!debug || !fs.existsSync(cache_file_for_overpass_answer)) {
