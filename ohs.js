@@ -42,7 +42,7 @@ if (listening_ports.length == 0) {
 }
 /* }}} */
 
-function parseOverpassAnswer(overpass_answer, filter, keys, res) {
+function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
     overpass_answer.generator += ', modified by the ' + project_name;
     filtered_elements = [];
 
@@ -150,7 +150,7 @@ app.get('/api/oh_interpreter', function(req, res) {
             });
             response.on('end', function() {
                 overpass_answer = JSON.parse(encoded_json);
-                parseOverpassAnswer(overpass_answer, filter, keys, res);
+                parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res);
                 if (debug) {
                     fs.writeFile(cache_file_for_overpass_answer, encoded_json, function(err) {
                         if (err)
@@ -166,7 +166,7 @@ app.get('/api/oh_interpreter', function(req, res) {
     if (debug && fs.existsSync(cache_file_for_overpass_answer)) {
         console.log("Got query from %s, satisfying from cache file. Answer might be not appropriate to request.", req.hostname);
         overpass_answer = JSON.parse(fs.readFileSync(cache_file_for_overpass_answer));
-        parseOverpassAnswer(overpass_answer, filter, keys, res);
+        parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res);
     }
 
 });

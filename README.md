@@ -6,6 +6,8 @@ It works by querying the requested data from the [OverpassAPI][], then fed it to
 
 ## Example query
 
+http://localhost:8080/api/oh_interpreter?tag=opening_hours&s=51.249&n=51.251&w=7.149&e=7.151&filter=errorOnly
+
 <!-- Security {{{ -->
 ## Security
 
