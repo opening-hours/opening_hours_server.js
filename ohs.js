@@ -171,6 +171,10 @@ app.get('/api/oh_interpreter', function(req, res) {
 
 });
 
+app.get('/api/get_license', function(req, res) {
+    res.send('<html><head><title>LICENSE</title></head><body><pre>' + fs.readFileSync('LICENSE') + '</pre></body></html>');
+});
+
 for (var i = 0; i < listening_ports.length; i++) {
     console.log('Starting to listen on "%s".', listening_ports[i]);
     app.listen(listening_ports[i]);
