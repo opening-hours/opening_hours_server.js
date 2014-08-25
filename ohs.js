@@ -104,7 +104,7 @@ app.get('/api/oh_interpreter', function(req, res) {
             errors.push("Coordinate " + bbox_url_parms[i] + " of bbox is missing.");
         }
     }
-    var filter;
+    var filter = filters.indexOf('error');
     if (typeof req.query.filter === 'string') {
         if (filters.indexOf(req.query.filter) === -1) {
             errors.push("Invalid filter: " + req.query.filter);
