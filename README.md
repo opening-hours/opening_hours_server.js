@@ -4,6 +4,7 @@ A little server daemon answering query‘s for [opening_hours][Key:opening_hours
 
 It works by querying the requested data from the [OverpassAPI][], then fed it to [opening_hours.js][oh-lib] to see if it can be evaluated.
 
+## Example query
 
 <!-- Security {{{ -->
 ## Security

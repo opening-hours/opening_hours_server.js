@@ -15,6 +15,7 @@ var listening_ports = [];
 var cache_file_for_overpass_answer = 'cache.json';
 var problem_code_to_problem = ['ok', 'warning', 'error'];
 var filters = ['error', 'errorOnly', 'warnOnly'];
+var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 /* Parameter parsing {{{ */
 var args = process.argv.splice(2);
@@ -36,8 +37,47 @@ for (var i = 0; i < args.length; i++) {
         }
     }
 }
+if (listening_ports.length == 0) {
+    throw("Please specify which port to use. You can addionally specify -d | --debug to run in debug mode and to omit overpass querys.");
+}
 /* }}} */
 
+function parseOverpassAnswer(overpass_answer, filter, keys, res) {
+    overpass_answer.generator += ', modified by the ' + project_name;
+    filtered_elements = [];
+
+    var number_of_elements = overpass_answer.elements.length;
+    for (i = 0; i < number_of_elements; i++) {
+        var tags = overpass_answer.elements[i].tags;
+        var worst_problem = undefined;
+        overpass_answer.elements[i].tag_problems = {};
+        for (var key in tags) {
+            if (keys.indexOf(key) != -1) {
+                var warnings, crashed;
+                try {
+                    oh = new opening_hours(tags[key], nominatiomTestJSON, oh_mode);
+                    warnings = oh.getWarnings();
+                    crashed = false;
+                } catch (err) {
+                    crashed = err;
+                }
+                var problem = (crashed ? 2 : (warnings.length > 0 ? 1 : 0));
+                overpass_answer.elements[i].tag_problems[key] = {
+                    error: !!crashed,
+                    eval_notes: (crashed ? [ crashed ] : warnings),
+                };
+                if (typeof worst_problem === 'undefined' || problem > worst_problem) {
+                    worst_problem = problem;
+                }
+            }
+        }
+        if (filter < worst_problem)
+            filtered_elements.push(overpass_answer.elements[i]);
+    }
+    overpass_answer.elements = filtered_elements;
+    res.set('Content-Type', 'application/json');
+    res.send(JSON.stringify(overpass_answer, null, '  '));
+}
 
 app.get('/api/oh_interpreter', function(req, res) {
     var i;
@@ -72,6 +112,14 @@ app.get('/api/oh_interpreter', function(req, res) {
             filter = filters.indexOf(req.query.filter);
         }
     }
+    var oh_mode = 0;
+    if (typeof req.query.mode === 'string') {
+        if (!req.query.mode.match(/^[0-2]$/)) {
+            errors.push("Invalid mode: " + req.query.filter);
+        } else {
+            oh_mode = parseInt(req.query.mode);
+        }
+    }
     if (errors.length > 0) {
         res.status(400).send(errors.join('<br>\n') + '<br><br>\nSee <a href="' + repository_url + '">documentation</a>.');
         return;
@@ -87,63 +135,40 @@ app.get('/api/oh_interpreter', function(req, res) {
     }
 
     var OverpassQL = '[out:json][timeout:3][bbox:' + bbox_coordinates.join(',') + '];(' + components.join('') + ');out body center;';
-    console.log(OverpassQL);
 
-    var options = {
-        host: 'overpass-api.de',
-        path: '/api/interpreter?data=' + encodeURIComponent(OverpassQL),
-    };
-
-    // if (!fs.existsSync(cache_file_for_overpass_answer)) {
-        // var file = fs.createWriteStream(cache_file_for_overpass_answer);
-        // var request = http.get(options, function(response) {
-            // response.pipe(file);
-        // }).on('error', function(err) {
-             // throw("Got error: " + err.message);
-        // });
-    // }
-    fs.readFile(cache_file_for_overpass_answer, 'utf8', function (err, data) {
-        overpass_answer = JSON.parse(data);
-
-        overpass_answer.generator += ', modified by the ' + project_name;
-        filtered_elements = [];
-
-        var number_of_elements = overpass_answer.elements.length;
-        for (i = 0; i < number_of_elements; i++) {
-            var tags = overpass_answer.elements[i].tags;
-            var worst_problem = undefined;
-            overpass_answer.elements[i].tag_problems = {};
-            for (var key in tags) {
-                if (keys.indexOf(key) != -1) {
-                    var warnings, crashed;
-                    try {
-                        oh = new opening_hours(tags[key]);
-                        warnings = oh.getWarnings();
-                        crashed = false;
-                    } catch (err) {
-                        crashed = true;
-                    }
-                    var problem = (crashed ? 2 : (warnings.length > 0 ? 1 : 0));
-                    overpass_answer.elements[i].tag_problems[key] = problem_code_to_problem[problem];
-                    if (typeof worst_problem === 'undefined' || problem > worst_problem) {
-                        worst_problem = problem;
-                    }
+    var overpass_answer;
+    if (!debug || !fs.existsSync(cache_file_for_overpass_answer)) {
+        console.log("Executing query: " + OverpassQL);
+        var encoded_json = '';
+        var request = http.get({
+            host: 'overpass-api.de',
+            path: '/api/interpreter?data=' + encodeURIComponent(OverpassQL),
+        }, function(response) {
+            response.on('data', function(d) {
+                encoded_json += d.toString();
+                console.log("Got data: %s", d);
+            });
+            response.on('end', function() {
+                overpass_answer = JSON.parse(encoded_json);
+                parseOverpassAnswer(overpass_answer, filter, keys, res);
+                if (debug) {
+                    fs.writeFile(cache_file_for_overpass_answer, encoded_json, function(err) {
+                        if (err)
+                            throw err;
+                    });
                 }
-            }
-            console.log("filter %d, worst %d", filter, worst_problem);
-            if (filter < worst_problem)
-                filtered_elements.push(overpass_answer.elements[i]);
-        }
-        overpass_answer.elements = filtered_elements;
-        res.set('Content-Type', 'application/json');
-        res.send(JSON.stringify(overpass_answer, null, '  '));
-    });
+            });
+        }).on('error', function(err) {
+             throw("Got error: " + err.message);
+        });
+    }
 
-    // var overpass_request = http.get(translation_source, function(response) {
-        // response.pipe(file);
-    // }).on('error', function(err) {
-         // throw("Got error: " + err.message);
-    // });
+    if (debug && fs.existsSync(cache_file_for_overpass_answer)) {
+        console.log("Got query from %s, satisfying from cache file. Answer might be not appropriate to request.", req.hostname);
+        overpass_answer = JSON.parse(fs.readFileSync(cache_file_for_overpass_answer));
+        parseOverpassAnswer(overpass_answer, filter, keys, res);
+    }
+
 });
 
 for (var i = 0; i < listening_ports.length; i++) {
