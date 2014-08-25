@@ -138,7 +138,7 @@ app.get('/api/oh_interpreter', function(req, res) {
 
     var overpass_answer;
     if (!debug || !fs.existsSync(cache_file_for_overpass_answer)) {
-        console.log("Executing query: " + OverpassQL);
+        console.log("Executing query requested by %s: %s", req.hostname, OverpassQL);
         var encoded_json = '';
         var request = http.get({
             host: 'overpass-api.de',
@@ -146,7 +146,6 @@ app.get('/api/oh_interpreter', function(req, res) {
         }, function(response) {
             response.on('data', function(d) {
                 encoded_json += d.toString();
-                console.log("Got data: %s", d);
             });
             response.on('end', function() {
                 overpass_answer = JSON.parse(encoded_json);
