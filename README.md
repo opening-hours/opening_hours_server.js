@@ -6,9 +6,9 @@ It works by querying the requested data from the [OverpassAPI][], then fed it to
 
 ## Example query
 
-http://openingh.openstreetmap.de:12355/api/oh_interpreter?&tag=opening_hours&s=48.7785984&w=2.2257825&n=48.9165552&e=2.438069
+http://openingh.openstreetmap.de/api/oh_interpreter?&tag=opening_hours&s=48.7785984&w=2.2257825&n=48.9165552&e=2.438069
 
-http://openingh.openstreetmap.de:12355/api/get_license
+http://openingh.openstreetmap.de/api/get_license
 
 <!-- Security {{{ -->
 ## Security
