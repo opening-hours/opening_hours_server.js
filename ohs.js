@@ -11,7 +11,6 @@ var overpass_timeout = 60;
 var project_name   = 'opening_hours_server.js';
 var repository_url = 'https://github.com/ypid/' + project_name;
 var bbox_url_parms = ['s', 'w', 'n', 'e'];
-var debug = false;
 var listening_ports = [];
 var cache_file_for_overpass_answer = 'cache.json';
 var problem_code_to_problem = ['ok', 'warning', 'error'];
@@ -19,11 +18,16 @@ var filters = ['error', 'errorOnly', 'warnOnly'];
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
 /* Parameter parsing {{{ */
+var debug = false;
+var localhost_only = false;
 var args = process.argv.splice(2);
 for (var i = 0; i < args.length; i++) {
     if (args[i] === '-d' || args[i] === '--debug') {
         console.log("Running in debug mode.");
         debug = true;
+    } else if (args[i] === '-l' || args[i] === '--localhost-only') {
+        console.log("Binding on loop back device only.");
+        localhost_only = true;
     } else {
         var port_number;
         try {
@@ -180,5 +184,9 @@ app.get('/api/get_license', function(req, res) {
 
 for (var i = 0; i < listening_ports.length; i++) {
     console.log('Starting to listen on "%s".', listening_ports[i]);
-    app.listen(listening_ports[i]);
+    if (localhost_only) {
+        app.listen(listening_ports[i], 'localhost');
+    } else {
+        app.listen(listening_ports[i]);
+    }
 }
