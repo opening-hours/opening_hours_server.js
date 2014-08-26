@@ -16,6 +16,7 @@ http://openingh.openstreetmap.de/api/get_license
 Security is a key factor for this little program. All user input must be validated before processing it.
 
 <!-- }}} -->
+
 <!-- Authors {{{ -->
 ## Authors
 
@@ -23,7 +24,15 @@ Security is a key factor for this little program. All user input must be validat
 
 <!-- }}} -->
 
+<!-- Credits {{{ -->
+## Credits ##
+
+* Thanks to FOSSGIS for hosting a public instance of this service. See the [wiki][fossgis-project].
+
+<!-- }}} -->
+
 [Key:opening_hours]: http://wiki.openstreetmap.org/wiki/Key:opening_hours
 [OverpassAPI]: http://overpass-api.de/
 [oh-lib]: https://github.com/ypid/opening_hours.js
 [qat_script]: https://github.com/simone-f/qat_script
+[fossgis-project]: http://wiki.openstreetmap.org/wiki/FOSSGIS/Server/Projects/opening_hours.js
