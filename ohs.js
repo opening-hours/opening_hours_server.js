@@ -186,6 +186,11 @@ app.get('/api/get_license', function(req, res) {
     res.send('<html><head><title>LICENSE</title></head><body><pre>' + fs.readFileSync('LICENSE') + '</pre></body></html>');
 });
 
+app.get('/api', function(req, res) {
+    res.send('<html><head><title>Documentation</title></head><body><p>You can find the README together with the source code <a href="' + repository_url + '">on Github</a>.'
+        + '</p></body></html>');
+});
+
 for (var i = 0; i < listening_ports.length; i++) {
     console.log('Starting to listen on "%s".', listening_ports[i]);
     if (localhost_only) {
