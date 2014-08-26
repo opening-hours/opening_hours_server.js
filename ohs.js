@@ -146,7 +146,11 @@ app.get('/api/oh_interpreter', function(req, res) {
 
     var overpass_answer;
     if (!debug || !fs.existsSync(cache_file_for_overpass_answer)) {
-        console.log("Executing query requested by %s: %s", req.hostname, OverpassQL);
+        if (localhost_only) {
+            console.log("%s: Executing query: %s", new Date(), OverpassQL);
+        } else {
+            console.log("%s: Executing query requested by %s: %s", new Date(), req.hostname, OverpassQL);
+        }
         var encoded_json = '';
         var request = http.get({
             host: 'overpass-api.de',
