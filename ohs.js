@@ -84,10 +84,9 @@ function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
                 if (typeof oh_mode == 'undefined') {
                     if (typeof tags_to_mode[key] == 'object') {
                         current_oh_mode =  tags_to_mode[key][0];
-                        console.log(current_oh_mode);
                         if (   typeof tags_to_mode[key][1] == 'object'
                             && typeof tags_to_mode[key][1].map == 'object'
-                            && typeof tags_to_mode[key][1].map[current_oh_value]) {
+                            && typeof tags_to_mode[key][1].map[current_oh_value] == 'string') {
 
                             current_oh_value = tags_to_mode[key][1].map[current_oh_value];
                         }
