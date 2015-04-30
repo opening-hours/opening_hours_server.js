@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env nodejs
 
 var express       = require('express');
 var opening_hours = require('opening_hours');
@@ -75,7 +75,7 @@ function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
     var number_of_elements = overpass_answer.elements.length;
     for (i = 0; i < number_of_elements; i++) {
         var tags = overpass_answer.elements[i].tags;
-        var worst_problem;
+        var worst_problem = 0;
         overpass_answer.elements[i].tag_problems = {};
         for (var key in tags) {
             if (keys.indexOf(key) != -1) {
@@ -111,13 +111,14 @@ function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
                 if (typeof worst_problem === 'undefined' || problem > worst_problem) {
                     worst_problem = problem;
                 }
-                if (debug && overpass_answer.elements[i].tag_problems[key].eval_notes) {
+                if (debug && overpass_answer.elements[i].tag_problems[key].eval_notes && overpass_answer.elements[i].tag_problems[key].eval_notes.length > 0) {
                     console.log(overpass_answer.elements[i].tag_problems[key].eval_notes);
                 }
             }
         }
-        if (filter < worst_problem)
+        if (filter < worst_problem) {
             filtered_elements.push(overpass_answer.elements[i]);
+        }
     }
     overpass_answer.elements = filtered_elements;
     res.set('Content-Type', 'application/json');
@@ -160,7 +161,7 @@ app.get('/api/oh_interpreter', function(req, res) {
     var oh_mode;
     if (typeof req.query.mode === 'string') {
         if (!req.query.mode.match(/^[0-2]$/)) {
-            errors.push("Invalid mode: " + req.query.filter);
+            errors.push("Invalid mode: " + req.query.mode);
         } else {
             oh_mode = parseInt(req.query.mode);
         }
@@ -209,9 +210,7 @@ app.get('/api/oh_interpreter', function(req, res) {
         }).on('error', function(err) {
              throw("Got error: " + err.message);
         });
-    }
-
-    if (debug && fs.existsSync(cache_file_for_overpass_answer)) {
+    } else if (debug && fs.existsSync(cache_file_for_overpass_answer)) {
         console.log("Got query from %s, satisfying from cache file. Answer might be not appropriate to request.", req.hostname);
         overpass_answer = JSON.parse(fs.readFileSync(cache_file_for_overpass_answer));
         parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res);
