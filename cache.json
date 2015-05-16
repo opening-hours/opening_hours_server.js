@@ -1,0 +1,48 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API",
+  "osm3s": {
+    "timestamp_osm_base": "2015-05-16T11:20:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "bounds": {
+    "minlat": 50.6554,
+    "minlon": 6.98425,
+    "maxlat": 50.8112,
+    "maxlon": 7.26737
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 30755554,
+  "lat": 50.7392927,
+  "lon": 7.0950485,
+  "tags": {
+    "opening_hours": "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off",
+    "node": "value_perfectly_valid"
+  }
+},
+{
+  "type": "node",
+  "id": 30755554,
+  "lat": 50.7392927,
+  "lon": 7.0950485,
+  "tags": {
+    "opening_hours": "Mo,Dienstag,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off",
+    "node": "should warn"
+  }
+},
+{
+  "type": "node",
+  "id": 30755554,
+  "lat": 50.7392927,
+  "lon": 7.0950485,
+  "tags": {
+    "opening_hours": "fail",
+    "node": "should fail"
+  }
+}
+
+  ]
+}
