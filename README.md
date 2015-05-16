@@ -57,7 +57,16 @@ http://openingh.openstreetmap.de/api/get_license
 ```
 <!-- }}} -->
 
+## Query parameters
+
+URL parm      | Defautl value      | Possible values and meaning
+------------- | -------------      | -------------
+s, w, n, e    | None, all required | [Bounding box](https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#All_data_in_a_bounding_box)
+tag           | None, required     | [Tag key](https://wiki.openstreetmap.org/wiki/Tags)
+filter        | 'error'            | error: errors and warnings, errorOnly: only errors, warnOnly: only warnings
+
 <!-- Security {{{ -->
+
 ## Security
 
 Security is a key factor for this little program. All user input must be validated before processing it.
