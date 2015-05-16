@@ -20,24 +20,6 @@ var filters = {
 };
 var nominatiomTestJSON = {"place_id":"44651229","licence":"Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"36248375","lat":"49.5400039","lon":"9.7937133","display_name":"K 2847, Lauda-K\u00f6nigshofen, Main-Tauber-Kreis, Regierungsbezirk Stuttgart, Baden-W\u00fcrttemberg, Germany, European Union","address":{"road":"K 2847","city":"Lauda-K\u00f6nigshofen","county":"Main-Tauber-Kreis","state_district":"Regierungsbezirk Stuttgart","state":"Baden-W\u00fcrttemberg","country":"Germany","country_code":"de","continent":"European Union"}};
 
-// Copied from https://github.com/ypid/opening_hours_map/blob/master/opening_hours_map.html
-var tags_to_mode = {
-	'opening_hours'        : [ 0, ], // [ mode, options hash from real_test ]
-	'collection_times'     : [ 2, ],
-	'lit'                  : [ 0, {
-			map: {
-				'yes'      : 'sunset-sunrise open "specified as yes"',
-				'no'       : 'closed "specified as no"',
-				'automatic': 'unknown "specified as automatic"',
-				'interval' : 'unknown "specified as interval"',
-				'limited'  : 'unknown "specified as limited"',
-			}
-		}
-	],
-	'smoking_hours'        : [ 0, ],
-	'service_times'        : [ 2, ],
-};
-
 /* Parameter parsing {{{ */
 var debug = false;
 var localhost_only = false;
@@ -68,9 +50,9 @@ if (listening_ports.length == 0) {
 }
 /* }}} */
 
-function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
-    var current_oh_mode;
+function parseOverpassAnswer(overpass_answer, filter, keys, res) {
     var current_oh_value;
+    var current_oh_mode;
 
     overpass_answer.generator += ', modified by the ' + project_name;
     filtered_elements = [];
@@ -78,30 +60,17 @@ function parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res) {
     var number_of_elements = overpass_answer.elements.length;
     for (i = 0; i < number_of_elements; i++) {
         var tags = overpass_answer.elements[i].tags;
-        var worst_problem;
+        var worst_problem = null;
         overpass_answer.elements[i].tag_problems = {};
         for (var key in tags) {
             if (keys.indexOf(key) != -1) {
                 current_oh_value = tags[key];
                 current_oh_mode  = 0; // Default value.
-                if (typeof oh_mode == 'undefined') {
-                    if (typeof tags_to_mode[key] == 'object') {
-                        current_oh_mode =  tags_to_mode[key][0];
-                        if (   typeof tags_to_mode[key][1] == 'object'
-                            && typeof tags_to_mode[key][1].map == 'object'
-                            && typeof tags_to_mode[key][1].map[current_oh_value] == 'string') {
-
-                            current_oh_value = tags_to_mode[key][1].map[current_oh_value];
-                        }
-                    }
-                } else {
-                    current_oh_mode = oh_mode;
-                }
 
                 var warnings;
                 var crashed = true;
                 try {
-                    oh = new opening_hours(current_oh_value, nominatiomTestJSON, current_oh_mode);
+                    oh = new opening_hours(current_oh_value, nominatiomTestJSON, {'tag_key': key, 'map_value': true } );
                     warnings = oh.getWarnings();
                     crashed = false;
                 } catch (err) {
@@ -163,14 +132,6 @@ app.get('/api/oh_interpreter', function(req, res) {
             errors.push("Invalid filter: " + req.query.filter);
         }
     }
-    var oh_mode;
-    if (typeof req.query.mode === 'string') {
-        if (!req.query.mode.match(/^[0-2]$/)) {
-            errors.push("Invalid mode: " + req.query.mode);
-        } else {
-            oh_mode = parseInt(req.query.mode);
-        }
-    }
     if (errors.length > 0) {
         res.status(400).send(errors.join('<br>\n') + '<br><br>\nSee <a href="' + repository_url + '">documentation</a>.');
         return;
@@ -204,7 +165,7 @@ app.get('/api/oh_interpreter', function(req, res) {
             });
             response.on('end', function() {
                 overpass_answer = JSON.parse(encoded_json);
-                parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res);
+                parseOverpassAnswer(overpass_answer, filter, keys, res);
                 if (debug) {
                     fs.writeFile(cache_file_for_overpass_answer, encoded_json, function(err) {
                         if (err)
@@ -218,7 +179,7 @@ app.get('/api/oh_interpreter', function(req, res) {
     } else if (debug && fs.existsSync(cache_file_for_overpass_answer)) {
         console.log("Got query from %s, satisfying from cache file. Answer might be not appropriate to request.", req.hostname);
         overpass_answer = JSON.parse(fs.readFileSync(cache_file_for_overpass_answer));
-        parseOverpassAnswer(overpass_answer, filter, keys, oh_mode, res);
+        parseOverpassAnswer(overpass_answer, filter, keys, res);
     } else {
         console.log("Bug in debugging mode accoured!");
     }

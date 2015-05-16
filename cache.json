@@ -20,6 +20,7 @@
   "lon": 7.0950485,
   "tags": {
     "opening_hours": "Mo,Tu,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off",
+    "collection_times": "Mo-Fr 08:00-18:00",
     "node": "value_perfectly_valid"
   }
 },
@@ -30,6 +31,7 @@
   "lon": 7.0950485,
   "tags": {
     "opening_hours": "Mo,Dienstag,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off",
+    "collection_times": "Montag-Fr 08:00-18:00",
     "node": "should warn"
   }
 },
@@ -40,6 +42,7 @@
   "lon": 7.0950485,
   "tags": {
     "opening_hours": "fail",
+    "collection_times": "fail",
     "node": "should fail"
   }
 }
