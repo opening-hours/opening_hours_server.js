@@ -19,6 +19,7 @@
       "lon": 7.0950485,
       "tags": {
         "opening_hours": "fail",
+        "collection_times": "fail",
         "node": "should fail"
       },
       "tag_problems": {

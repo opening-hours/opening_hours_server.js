@@ -1,16 +1,33 @@
-CHECK_URL ?= http://localhost:5000/api/oh_interpreter
+MAKE_OPTIONS ?= --no-print-directory
 
-.PHONY: default check dev
+CHECK_URL ?= http://localhost:5000/api/oh_interpreter
 
 default:
 	@echo "See Makefile"
 
-check: test.opening_hours.error.json \
-		test.opening_hours.errorOnly.json \
-		test.opening_hours.warnOnly.json \
-		test.collection_times.error.json \
-		test.collection_times.errorOnly.json \
-		test.collection_times.warnOnly.json
+CHECK_TARGET_FILES = test.opening_hours.error.json \
+	test.opening_hours.errorOnly.json \
+	test.opening_hours.warnOnly.json \
+	test.collection_times.error.json \
+	test.collection_times.errorOnly.json \
+	test.collection_times.warnOnly.json
+
+test.opening_hours.error.json:
+test.opening_hours.errorOnly.json:
+test.opening_hours.warnOnly.json:
+test.collection_times.error.json:
+test.collection_times.errorOnly.json:
+test.collection_times.warnOnly.json:
+
+.PHONY: default check check-clean dev
+
+check: $(CHECK_TARGET_FILES)
+	@for check in $(CHECK_TARGET_FILES); do \
+		$(MAKE) --always-make $(MAKE_OPTIONS) "$$check"; \
+	done
+
+check-clean:
+	rm --force $(CHECK_TARGET_FILES)
 
 dev:
 	./ohs.js --debug 5000
