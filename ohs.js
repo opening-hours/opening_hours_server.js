@@ -89,7 +89,6 @@ function parseOverpassAnswer(overpass_answer, filter, keys, res) {
                 }
             }
         }
-        console.log("filter: " + filter + ", worst_problem: " + worst_problem);
         if (filter === worst_problem || (filter === 'error' && worst_problem !== null)) {
             filtered_elements.push(overpass_answer.elements[i]);
         }
