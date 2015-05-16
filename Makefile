@@ -1,6 +1,6 @@
 MAKE_OPTIONS ?= --no-print-directory
 
-CHECK_URL ?= http://localhost:5000/api/oh_interpreter
+CHECK_URL ?= http://localhost:12355/api/oh_interpreter
 
 default:
 	@echo "See Makefile"
@@ -30,7 +30,10 @@ check-clean:
 	rm --force $(CHECK_TARGET_FILES)
 
 dev:
-	./ohs.js --debug 5000
+	./ohs.js --debug 12355
+
+serve:
+	./ohs.js 12355
 
 test.%.json:
 	wget "$(CHECK_URL)?tag=$(shell echo "$@" | cut -d . -f 2)&filter=$(shell echo "$@" | cut -d . -f 3)&s=50.6553939&w=6.9842517&n=50.8111732&e=7.2673653" --output-document "$@" --quiet
