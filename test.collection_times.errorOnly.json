@@ -2,7 +2,7 @@
   "version": 0.6,
   "generator": "Overpass API, modified by the opening_hours_server.js",
   "osm3s": {
-    "timestamp_osm_base": "2015-05-16T11:20:02Z",
+    "timestamp_osm_base": "2015-09-02T17:05:02Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "bounds": {
@@ -11,25 +11,5 @@
     "maxlat": 50.8112,
     "maxlon": 7.26737
   },
-  "elements": [
-    {
-      "type": "node",
-      "id": 30755554,
-      "lat": 50.7392927,
-      "lon": 7.0950485,
-      "tags": {
-        "opening_hours": "fail",
-        "collection_times": "fail",
-        "node": "should fail"
-      },
-      "tag_problems": {
-        "collection_times": {
-          "error": true,
-          "eval_notes": [
-            "fa <--- (Unexpected token: \"f\" This means that the syntax is not valid at that point or it is currently not supported.) "
-          ]
-        }
-      }
-    }
-  ]
+  "elements": []
 }

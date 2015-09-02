@@ -2,7 +2,7 @@
   "version": 0.6,
   "generator": "Overpass API, modified by the opening_hours_server.js",
   "osm3s": {
-    "timestamp_osm_base": "2015-05-16T11:20:02Z",
+    "timestamp_osm_base": "2015-09-02T17:05:02Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "bounds": {
@@ -14,19 +14,543 @@
   "elements": [
     {
       "type": "node",
-      "id": 30755554,
-      "lat": 50.7392927,
-      "lon": 7.0950485,
+      "id": 73746360,
+      "lat": 50.735997,
+      "lon": 7.094898,
       "tags": {
-        "opening_hours": "fail",
-        "collection_times": "fail",
-        "node": "should fail"
+        "name": "Jinlong Asia Supermarkt",
+        "opening_hours": "Mo-Sa 10:00:19:00",
+        "origin": "asian",
+        "shop": "supermarket"
       },
       "tag_problems": {
         "opening_hours": {
           "error": true,
           "eval_notes": [
-            "fa <--- (Unexpected token: \"f\" This means that the syntax is not valid at that point or it is currently not supported.) "
+            "Mo-Sa 10:00: <--- (hyphen (-) or open end (+) in time range expected. For working with points in time, the mode for opening_hours.js has to be altered. Maybe wrong tag?)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "node",
+      "id": 323279526,
+      "lat": 50.7126707,
+      "lon": 7.1093724,
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:housenumber": "42",
+        "addr:postcode": "53129",
+        "addr:street": "Pützstraße",
+        "amenity": "bank",
+        "atm": "yes",
+        "name": "Sparkasse KölnBonn",
+        "opening_hours": "Mo-Fr 9-13; Mo+Do 14-18; Di+Mi+Fr 14-16",
+        "operator": "Sparkasse KölnBonn",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Mo-Fr 9-13; Mo+ <--- (Unexpected token: \"+\" This means that the syntax is not valid at that point or it is currently not supported.) Mo-Fr 9-13; Mo+Do <--- (Bitte benutze die englische Abkürzung \"Th\" für \"do\".); Mo-Fr 9-13; Mo+Do 14-18; Di <--- (Bitte benutze die englische Abkürzung \"Tu\" für \"di\".); Mo-Fr 9-13; Mo+Do 14-18; Di+Mi <--- (Bitte benutze die englische Abkürzung \"We\" für \"mi\".); Mo-Fr 9-13 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead \"09:00-13:00\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "node",
+      "id": 611256148,
+      "lat": 50.7128495,
+      "lon": 7.1093539,
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:housenumber": "37",
+        "addr:postcode": "53129",
+        "addr:street": "Pützstraße",
+        "name": "Lubig",
+        "opening_hours": "Mo-Fr 6:30-18:30; Sa 6:30-15; So 8-13",
+        "phone": "+49 228 54003710",
+        "shop": "bakery",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Mo-Fr 6:30-18:30; Sa 6:30-15 <--- (Time range does not continue as expected)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "node",
+      "id": 611256154,
+      "lat": 50.7126407,
+      "lon": 7.109047,
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:housenumber": "36",
+        "addr:postcode": "53129",
+        "addr:street": "Pützstraße",
+        "name": "Kamps",
+        "opening_hours": "Mo-Sa 6:30-18; So 8-11",
+        "shop": "bakery",
+        "wheelchair": "no"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Mo-Sa 6:30-18 <--- (Time range does not continue as expected)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "node",
+      "id": 648988990,
+      "lat": 50.7126892,
+      "lon": 7.1095173,
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:housenumber": "44",
+        "addr:postcode": "53129",
+        "addr:street": "Pützstraße",
+        "name": "Blumen & Deko",
+        "opening_hours": "Mo-Fr 9-18:30; Sa 9-13",
+        "shop": "florist",
+        "website": "http://www.blumenunddeko.de/",
+        "wheelchair": "limited"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Mo-Fr 9-18:30 <--- (Unexpected token: \"number\" This means that the syntax is not valid at that point or it is currently not supported.) Mo-Fr 9-18 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead \"09:00-18:00\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "node",
+      "id": 2305291834,
+      "lat": 50.7424601,
+      "lon": 7.0329983,
+      "tags": {
+        "name": "Spargel Ritter",
+        "opening_hours": "Nur in der Spargel-/Erdbeersaison",
+        "shop": "greengrocer"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Nu <--- (Unexpected token: \"n\" This means that the syntax is not valid at that point or it is currently not supported.) Nur in <--- (Please use the English abbreviation \"Su\" (Polish) for \"n\".); Nur in der Spargel-/Erdbeersaison <--- (Bitte benutze die englische Abkürzung \"Su\" für \"son\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "node",
+      "id": 3622915155,
+      "lat": 50.7367633,
+      "lon": 7.0976592,
+      "tags": {
+        "amenity": "fast_food",
+        "cuisine": "sandwich",
+        "name": "Backwerk",
+        "opening_hours": "Mo-Fr 06:30-20:30; Sa 97:00-20:00; Su 08:00-20:00"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Mo-Fr 06:30-20:30; Sa 97:00 <--- (Time range starts outside of the current day)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 153042268,
+      "center": {
+        "lat": 50.7331218,
+        "lon": 6.9925413
+      },
+      "nodes": [
+        1657911572,
+        1657911571,
+        1657911575,
+        1657911577,
+        1657911572
+      ],
+      "tags": {
+        "amenity": "fast_food",
+        "building": "yes",
+        "name": "Imbiss",
+        "opening_hours": "Sonntags während Heimspielen"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "Sonntags wä <--- (Unexpected token: \"w\" This means that the syntax is not valid at that point or it is currently not supported.) Sonntags <--- (Bitte benutze die englische Abkürzung \"Su\" für \"sonntags\".); Sonntags während Heimspielen <--- (Please use the English abbreviation \"Su\" (Polish) for \"n\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 163871633,
+      "center": {
+        "lat": 50.7382794,
+        "lon": 7.0893335
+      },
+      "nodes": [
+        1755436275,
+        1755436277,
+        1755436278,
+        1755436280,
+        1755436281,
+        1755436290,
+        1755436292,
+        1755436295,
+        1755436275
+      ],
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:country": "DE",
+        "addr:housenumber": "28e",
+        "addr:postcode": "53111",
+        "addr:street": "Adolfstraße",
+        "amenity": "library",
+        "building": "yes",
+        "name": "Bücherei St. Marien",
+        "opening_hours": "We: 14:30 -18:30, Su: 12:00-13:00",
+        "source": "Aerowest",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            {}
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 211147371,
+      "center": {
+        "lat": 50.7305358,
+        "lon": 7.0960847
+      },
+      "nodes": [
+        2559762210,
+        2559762176,
+        2559762172,
+        2559762057,
+        2559762074,
+        2559762059,
+        2559762030,
+        2559762008,
+        2559762201,
+        2559762203,
+        2559762210
+      ],
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:country": "DE",
+        "addr:housenumber": "14",
+        "addr:postcode": "53115",
+        "addr:street": "Dechenstraße",
+        "building": "office",
+        "name": "Elterngeld / Amt 51",
+        "opening_hours": "Mo Do 8:00-16:00,Di Mi Fr 8:00-13:00",
+        "website": "http://www.bonn.de/familie_gesellschaft_bildung_soziales/kind_jugend_familie/angebote_hilfen/06081/index.html?lang=de"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            {}
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 211147373,
+      "center": {
+        "lat": 50.7303249,
+        "lon": 7.095962
+      },
+      "nodes": [
+        2559762030,
+        2559761921,
+        2559761864,
+        2559761853,
+        2559761858,
+        2559761833,
+        2559761854,
+        2559761844,
+        2559761884,
+        2559761888,
+        2559761962,
+        2559761952,
+        2559762008,
+        2559762030
+      ],
+      "tags": {
+        "addr:city": "Bonn",
+        "addr:country": "DE",
+        "addr:housenumber": "14a",
+        "addr:postcode": "53115",
+        "addr:street": "Dechenstraße",
+        "building": "office",
+        "name": "Elterngeld / Amt 51 - 038",
+        "opening_hours": "Mo Do 8:00-16:00,Di Mi Fr 8:00-13:00",
+        "website": "http://www.bonn.de/familie_gesellschaft_bildung_soziales/kind_jugend_familie/angebote_hilfen/06081/index.html?lang=de"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            {}
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 224494214,
+      "center": {
+        "lat": 50.6577891,
+        "lon": 7.2023649
+      },
+      "nodes": [
+        1029594116,
+        2333150523,
+        2333150499,
+        2333150510,
+        2333150518,
+        2333150530,
+        2333150528,
+        2333150521,
+        2333150516,
+        2333150513,
+        2333150506,
+        2333150501,
+        2333150509,
+        2333150525
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "boat": "cruise_vessel",
+        "fee": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "name": "Personenschiffahrt Bad Honnef - Königswinter",
+        "opening_hours": "26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season",
+        "operator": "Köln Düsseldorfer Deutsche Rheinschiffahrt AG",
+        "route": "boat",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "26  <--- (Unexpected token: \"number\" This means that the syntax is not valid at that point or it is currently not supported.) 26 Apr - 06 Oct season <--- (Please omit \"season\".); 26 Apr - 06 Oct season, 29 Mar - 25 April <--- (Please use the English abbreviation \"Apr\" for \"april\".); 26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season <--- (Please omit \"season\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 224495201,
+      "center": {
+        "lat": 50.6820243,
+        "lon": 7.1816277
+      },
+      "nodes": [
+        2333150525,
+        2333159149,
+        2333159150,
+        2333159148,
+        2333159158,
+        2333159155,
+        2333159153,
+        2333159151,
+        2333159152,
+        2333159157,
+        2333159156,
+        2333159154,
+        497526076
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "boat": "cruise_vessel",
+        "fee": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "name": "Personenschiffahrt Königswinter - Bad Godesberg",
+        "opening_hours": "26 Apr - 06 Oct season, 29 Mar - 25 Apr + 07 Oct - 27 Oct off-season",
+        "operator": "Köln Düsseldorfer Deutsche Rheinschiffahrt AG",
+        "route": "boat",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "26  <--- (Unexpected token: \"number\" This means that the syntax is not valid at that point or it is currently not supported.) 26 Apr - 06 Oct season <--- (Please omit \"season\".); 26 Apr - 06 Oct season, 29 Mar - 25 Apr + 07 Oct - 27 Oct off-season <--- (Please omit \"season\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 224496862,
+      "center": {
+        "lat": 50.7030527,
+        "lon": 7.1625533
+      },
+      "nodes": [
+        497526076,
+        2333171292,
+        2333171236,
+        2333171229,
+        2333171226,
+        2333171264,
+        2333171279,
+        2333171253,
+        2333171282,
+        2333171244,
+        2333171235,
+        2333171258,
+        2333171234,
+        2333171285
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "boat": "cruise_vessel",
+        "fee": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "name": "Personenschiffahrt Bad Godesberg - Bonn",
+        "opening_hours": "26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season",
+        "operator": "Köln Düsseldorfer Deutsche Rheinschiffahrt AG",
+        "route": "boat",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "26  <--- (Unexpected token: \"number\" This means that the syntax is not valid at that point or it is currently not supported.) 26 Apr - 06 Oct season <--- (Please omit \"season\".); 26 Apr - 06 Oct season, 29 Mar - 25 April <--- (Please use the English abbreviation \"Apr\" for \"april\".); 26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season <--- (Please omit \"season\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 224496863,
+      "center": {
+        "lat": 50.7813026,
+        "lon": 7.0470525
+      },
+      "nodes": [
+        602068384,
+        2333171231,
+        2333171227,
+        2333171233,
+        2333171232,
+        2333171276,
+        2333171237,
+        2333171239,
+        2333171288,
+        2333171259,
+        2333171238,
+        2333171230,
+        2333171251,
+        2333171241,
+        2333171243,
+        2333171294,
+        2333171245,
+        2333171278,
+        2333171242,
+        2333171249,
+        2333171284,
+        2333171270,
+        2333171265,
+        2333171271,
+        2333171257,
+        2333171250,
+        2333171283,
+        2333171267,
+        2333171287,
+        2333171298,
+        2333171268,
+        2333171296,
+        2333171262,
+        2333171256,
+        2333171293,
+        2333171228,
+        2333171247,
+        2333171291,
+        849063761
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "boat": "cruise_vessel",
+        "fee": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "name": "Personenschiffahrt Bonn - Wesseling",
+        "opening_hours": "26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season",
+        "operator": "Köln Düsseldorfer Deutsche Rheinschiffahrt AG",
+        "route": "boat",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "26  <--- (Unexpected token: \"number\" This means that the syntax is not valid at that point or it is currently not supported.) 26 Apr - 06 Oct season <--- (Please omit \"season\".); 26 Apr - 06 Oct season, 29 Mar - 25 April <--- (Please use the English abbreviation \"Apr\" for \"april\".); 26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season <--- (Please omit \"season\".)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 341178190,
+      "center": {
+        "lat": 50.7161959,
+        "lon": 7.1519291
+      },
+      "nodes": [
+        2333171285,
+        2333171297
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "boat": "cruise_vessel",
+        "fee": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "name": "Personenschiffahrt Bad Godesberg - Bonn",
+        "opening_hours": "26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season",
+        "operator": "Köln Düsseldorfer Deutsche Rheinschiffahrt AG",
+        "route": "boat",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": true,
+          "eval_notes": [
+            "26  <--- (Unexpected token: \"number\" This means that the syntax is not valid at that point or it is currently not supported.) 26 Apr - 06 Oct season <--- (Please omit \"season\".); 26 Apr - 06 Oct season, 29 Mar - 25 April <--- (Please use the English abbreviation \"Apr\" for \"april\".); 26 Apr - 06 Oct season, 29 Mar - 25 April + 07 Oct - 27 Oct off-season <--- (Please omit \"season\".)"
           ]
         }
       }

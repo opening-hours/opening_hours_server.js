@@ -2,7 +2,7 @@
   "version": 0.6,
   "generator": "Overpass API, modified by the opening_hours_server.js",
   "osm3s": {
-    "timestamp_osm_base": "2015-05-16T11:20:02Z",
+    "timestamp_osm_base": "2015-09-02T17:05:02Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "bounds": {
@@ -14,19 +14,193 @@
   "elements": [
     {
       "type": "node",
-      "id": 30755554,
-      "lat": 50.7392927,
-      "lon": 7.0950485,
+      "id": 1988692761,
+      "lat": 50.7421899,
+      "lon": 7.0966452,
       "tags": {
-        "opening_hours": "Mo,Dienstag,Th,Fr 12:00-18:00; Sa,PH 12:00-17:00; Th[3],Th[-1] off",
-        "collection_times": "Montag-Fr 08:00-18:00",
-        "node": "should warn"
+        "addr:city": "Bonn",
+        "addr:street": "Graurheindorfer Straße",
+        "amenity": "restaurant",
+        "cuisine": "regional",
+        "delivery": "no",
+        "name": "Gaststube Altes Bonn",
+        "opening_hours": "Mo-Sa",
+        "smoking": "outside",
+        "takeaway": "no",
+        "wheelchair": "no"
       },
       "tag_problems": {
         "opening_hours": {
           "error": false,
           "eval_notes": [
-            "Mo,Dienstag <--- (Bitte benutze die englische Abkürzung \"Tu\" für \"dienstag\".)"
+            "Mo-Sa <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 118449146,
+      "center": {
+        "lat": 50.6686663,
+        "lon": 7.2063445
+      },
+      "nodes": [
+        1332278465,
+        1332278487,
+        1332278513,
+        1332278480,
+        1332278529,
+        2548018088,
+        2548018103,
+        1332278538,
+        1332278512,
+        1332278481,
+        1332278474,
+        2548018049,
+        2548018028,
+        1332278468,
+        1332278483,
+        1332278497,
+        1332278534,
+        1332278522,
+        1332278503,
+        2548018000,
+        1332278466,
+        2548017992,
+        2548017996,
+        1332278476,
+        1332278484,
+        1332278477,
+        1332278535,
+        1332278527,
+        1332278517,
+        2548018099,
+        2548018092,
+        2548018106,
+        1332278539,
+        1467451166,
+        1332278537,
+        2548018131,
+        2548018123,
+        2548018116,
+        1332278488,
+        1332278526,
+        1332278523,
+        2548018160,
+        2548018164,
+        2548018173,
+        2548018177,
+        2548018199,
+        2548018189,
+        1332278469,
+        1332278544,
+        1332278493,
+        1332278492,
+        1332278518,
+        1332278465
+      ],
+      "tags": {
+        "barrier": "city_wall",
+        "historic": "castle",
+        "image": "File:Schloss_Drachenburg_Luftbild_01.jpg",
+        "name": "Schloß Drachenburg",
+        "opening_hours": "2014 Apr 05-2014 Nov 02: Mo-Su 11:00-18:00;2014 Nov 03-2015 Mar 27: Sa,Su 12:00-17:00;\"Weihnachtsferien NRW\": Mo-Su 12:00-17:00;2014 Dec 24, 2014 Dec 25, 2014 Dec 31: closed",
+        "website": "http://www.schloss-drachenburg.de/",
+        "wheelchair": "limited",
+        "wikipedia": "de:Schloss Drachenburg"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": false,
+          "eval_notes": [
+            "2014 Apr 05-2014 Nov 02: Mo-Su 11:00-18:00;2014 Nov 03-2015 Mar 27: Sa,Su 12:00-17:00;\"Weihnachtsferien NRW\":  <--- (You have used the optional symbol <separator_for_readability> in the wrong place. Please check the syntax specification to see where it could be used or remove it.)",
+            "2014 Apr 5-2014 Nov 2: Mo-Su 11:00-18:00; 2014 Nov 3-2015 Mar 27: Sa,Su 12:00-17:00; Mo-Su <--- (The selector \"weekday\" was switched with the selector \"comment\" for readablitity and compatibiltity reasons.)",
+            "2014 Apr 5-2014 Nov 2: Mo-Su 11:00-18:00; 2014 Nov 3-2015 Mar 27: Sa,Su 12:00-17:00; Mo-Su 12:00-17:00 <--- (The selector \"time\" was switched with the selector \"weekday\" for readablitity and compatibiltity reasons.)",
+            "2014 Apr 5-2014 Nov 2: Mo-Su 11:00-18:00; 2014 Nov 3-2015 Mar 27: Sa,Su 12:00-17:00; Mo-Su 12:00-17:00 \"Weihnachtsferien NRW\": <--- (The selector \"comment\" was switched with the selector \"time\" for readablitity and compatibiltity reasons.)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 180733382,
+      "center": {
+        "lat": 50.7096474,
+        "lon": 7.0196976
+      },
+      "nodes": [
+        1911942161,
+        1911942174,
+        1911942173,
+        1911942172,
+        1911942167,
+        1911942157,
+        1911942160,
+        1911942161
+      ],
+      "tags": {
+        "addr:city": "Alfter",
+        "addr:country": "DE",
+        "addr:housenumber": "51",
+        "addr:postcode": "53347",
+        "addr:street": "Ahrweg",
+        "amenity": "restaurant",
+        "building": "yes",
+        "name": "Im Mühlengrund",
+        "opening_hours": "Tu-Su",
+        "phone": "0228-641636",
+        "website": "http://www.im-muehlengrund.de"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": false,
+          "eval_notes": [
+            "Tu-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)"
+          ]
+        }
+      }
+    },
+    {
+      "type": "way",
+      "id": 341178191,
+      "center": {
+        "lat": 50.7264554,
+        "lon": 7.1299833
+      },
+      "nodes": [
+        2333171297,
+        2333171240,
+        2333171274,
+        2333171252,
+        2333171266,
+        2333171273,
+        2333171255,
+        2333171263,
+        2333171260,
+        2333171272,
+        2333171275,
+        2333171280,
+        602068384
+      ],
+      "tags": {
+        "bicycle": "yes",
+        "boat": "cruise_vessel",
+        "fee": "yes",
+        "foot": "yes",
+        "motor_vehicle": "no",
+        "name": "Personenschiffahrt Bad Godesberg - Bonn",
+        "opening_hours": "Apr 26-Oct 06; Mar 29-Apr 25, Oct 07-Oct 27 off",
+        "operator": "Köln Düsseldorfer Deutsche Rheinschiffahrt AG",
+        "route": "boat",
+        "waterway": "river",
+        "wheelchair": "yes"
+      },
+      "tag_problems": {
+        "opening_hours": {
+          "error": false,
+          "eval_notes": [
+            "Apr 26-Oct 06 <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)"
           ]
         }
       }
