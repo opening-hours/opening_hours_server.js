@@ -64,7 +64,6 @@ if (typeof argv['tcp-port'] === 'number') {
 } else if (typeof argv['tcp-port'] === 'object') {
     for (var i = 0; i < argv['tcp-port'].length; i++) {
         port = argv['tcp-port'][i];
-        console.log("value");
         if (typeof port === 'number') {
             listening_ports.push(port);
         } else {
@@ -135,7 +134,6 @@ function parseOverpassAnswer(overpass_answer, filter_keyword, keys, res) {
             }
         }
         if (filter_keyword === worst_problem_keyword_for_element || (filter_keyword === 'error' && typeof worst_problem_keyword_for_element === 'string')) {
-            console.log("value");
             filtered_elements.push(overpass_answer.elements[i]);
         }
     }
