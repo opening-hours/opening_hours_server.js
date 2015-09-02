@@ -1,10 +1,11 @@
 {
-    "name": "opening_hours_server",
-    "description": "A little server answering query‘s for opening_hours and check if they can be evaluated.",
-    "version": "0.5.0",
-    "private": true,
+    "name"        :  "opening_hours_server",
+    "description" :  "A little server answering query‘s for opening_hours and check if they can be evaluated.",
+    "version"     :  "0.5.0",
+    "private"     :  true,
     "dependencies": {
-        "express": "4.8.5",
-        "opening_hours": "*"
+        "opening_hours" :  "*",
+        "express"       :  "4.8.5",
+        "optimist"      :  "0.6.1"
     }
 }
