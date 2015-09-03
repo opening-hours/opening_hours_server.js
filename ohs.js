@@ -34,7 +34,7 @@ var optimist = require('optimist')
     .describe('l', 'Bind to loopback only (only accept connections from localhost)')
     .describe('t', 'Overpass API timeout in seconds')
     .boolean(['v', 'd', 'l'])
-    .default('t', 60)
+    .default('t', 5 * 60)
     .demand('p')
     .alias('h', 'help')
     .alias('v', 'verbose')
@@ -52,6 +52,7 @@ if (argv.help) {
 }
 
 if (argv.debug) {
+    argv.verbose = true;
     console.log("Running in debug mode.");
     // console.log(JSON.stringify(argv, null, '    '));
 } else if (argv.verbose) {
@@ -229,6 +230,9 @@ app.get('/api/oh_interpreter', function(req, res) {
             });
             response.on('end', function() {
                 overpass_answer = JSON.parse(encoded_json);
+                if (argv.verbose && typeof overpass_answer.remark === 'string') {
+                    console.log("Overpass remark: " + overpass_answer.remark);
+                }
                 parseOverpassAnswer(overpass_answer, filter_keyword, keys, res);
                 if (argv.cache) {
                     fs.writeFile(cache_file_for_overpass_answer, encoded_json, function(err) {
