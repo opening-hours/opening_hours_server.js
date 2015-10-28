@@ -229,7 +229,14 @@ app.get('/api/oh_interpreter', function(req, res) {
                 encoded_json += data.toString();
             });
             response.on('end', function() {
-                overpass_answer = JSON.parse(encoded_json);
+                try { /* Overpass API might return invalid JSON.
+                       * See https://github.com/ypid/opening_hours_map/issues/39.
+                       */
+                    overpass_answer = JSON.parse(encoded_json);
+                } catch (e) {
+                    res.status(400).send("Overpass API returned invalid JSON. Please try again. " + e);
+                    return;
+                }
                 if (argv.verbose && typeof overpass_answer.remark === 'string') {
                     console.log("Overpass remark: " + overpass_answer.remark);
                 }

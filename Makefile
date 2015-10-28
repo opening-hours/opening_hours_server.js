@@ -2,6 +2,9 @@ MAKE_OPTIONS ?= --no-print-directory
 
 CHECK_URL ?= http://localhost:12355/api/oh_interpreter
 
+SLEEP_SEC_BETWEEN_RESTART ?= 30
+TCP_PORT ?= 12355
+
 default:
 	@echo "See Makefile"
 
@@ -30,10 +33,14 @@ check-clean:
 	rm --force $(CHECK_TARGET_FILES)
 
 dev:
-	./ohs.js --debug --tcp-port 12355
+	./ohs.js --debug --tcp-port $(TCP_PORT)
 
 serve:
-	./ohs.js --tcp-port 12355
+	@while true; do \
+		./ohs.js --tcp-port $(TCP_PORT); \
+		echo "Process terminated. Restarting in $(SLEEP_SEC_BETWEEN_RESTART) seconds …"; \
+		sleep $(SLEEP_SEC_BETWEEN_RESTART); \
+	done
 
 test.%.json:
 	wget "$(CHECK_URL)?tag=$(shell echo "$@" | cut -d . -f 2)&filter=$(shell echo "$@" | cut -d . -f 3)&s=50.6553939&w=6.9842517&n=50.8111732&e=7.2673653" --output-document "$@" --quiet
