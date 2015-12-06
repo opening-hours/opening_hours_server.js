@@ -224,6 +224,7 @@ app.get('/api/oh_interpreter', function(req, res) {
         var request = http.get({
             host: 'overpass-api.de',
             path: '/api/interpreter?data=' + encodeURIComponent(OverpassQL),
+            headers: {'user-agent': 'opening_hours_server.js, https://github.com/opening-hours/opening_hours_server.js'},
         }, function(response) {
             response.on('data', function(data) {
                 encoded_json += data.toString();

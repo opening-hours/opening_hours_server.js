@@ -73,6 +73,10 @@ Security is a key factor for this little program. All user input must be validat
 
 <!-- }}} -->
 
+## User agent for Overpass API
+
+Requests made against the Overpass API contain the HTTP user agent `opening_hours_server.js, https://github.com/opening-hours/opening_hours_server.js` to allow to identify the opening_hours_server.js.
+
 <!-- Authors {{{ -->
 ## Authors
 
