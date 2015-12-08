@@ -226,6 +226,9 @@ app.get('/api/oh_interpreter', function(req, res) {
             path: '/api/interpreter?data=' + encodeURIComponent(OverpassQL),
             headers: {'user-agent': 'opening_hours_server.js, https://github.com/opening-hours/opening_hours_server.js'},
         }, function(response) {
+            if (response.statusCode !== 200) {
+                console.log("Status code: " + response.statusCode);
+            }
             response.on('data', function(data) {
                 encoded_json += data.toString();
             });
@@ -251,7 +254,7 @@ app.get('/api/oh_interpreter', function(req, res) {
                 }
             });
         }).on('error', function(err) {
-             throw("Got error: " + err.message);
+             console.log("Got error: " + err.message);
         });
     }
 });
