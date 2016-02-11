@@ -260,7 +260,13 @@ app.get('/api/oh_interpreter', function(req, res) {
 });
 
 app.get('/api/get_license', function(req, res) {
-    res.send('<html><head><title>LICENSE</title></head><body><pre>' + fs.readFileSync('LICENSE') + '</pre></body></html>');
+    res.header('Content-Type', 'text/plain');
+    res.send(fs.readFileSync('LICENSE'));
+});
+
+app.get('/api/get_source', function(req, res) {
+    res.header('Content-Type', 'text/plain');
+    res.send(fs.readFileSync('ohs.js'));
 });
 
 app.get('/api', function(req, res) {

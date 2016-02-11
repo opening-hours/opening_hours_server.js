@@ -10,6 +10,8 @@ http://openingh.openstreetmap.de/api/oh_interpreter?&tag=opening_hours&s=48.7785
 
 http://openingh.openstreetmap.de/api/get_license
 
+http://openingh.openstreetmap.de/api/get_source
+
 <!-- Example response {{{ -->
 ## Example response
 
