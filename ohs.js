@@ -260,17 +260,26 @@ app.get('/api/oh_interpreter', function(req, res) {
 });
 
 app.get('/api/get_license', function(req, res) {
-    res.header('Content-Type', 'text/plain');
+    res.type('txt');
     res.send(fs.readFileSync('LICENSE'));
 });
 
 app.get('/api/get_source', function(req, res) {
-    res.header('Content-Type', 'text/plain');
+    res.type('txt');
     res.send(fs.readFileSync('ohs.js'));
 });
 
-app.get('/api', function(req, res) {
-    res.send('<html><head><title>Documentation</title></head><body><p>You can find the README together with the source code <a href="' + repository_url + '">on Github</a>.'
+app.get('/api/get_readme', function(req, res) {
+    // res.header('Content-Type', 'text/markdown; charset=UTF-8');
+    res.type('txt');
+    res.send(fs.readFileSync('README.md'));
+});
+
+app.get('*', function(req, res) {
+    res.status(404);
+    res.send('<html><head><title>' + project_name + ' note</title></head><body><p>'
+        + 'This is the ' + project_name + '. You can find the README together with the source code <a href="' + repository_url + '">on Github</a>.'
+        + ' It is also available via the API itself: <a href="/api/get_readme">README.md</a>, <a href="/api/get_source">source code</a>, <a href="/api/get_license">LICENSE</a>.'
         + '</p></body></html>');
 });
 
