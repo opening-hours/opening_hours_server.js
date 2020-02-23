@@ -151,7 +151,7 @@ app.get('/api/oh_interpreter', function(req, res) {
     /* Validate tag key {{{ */
     if (typeof req.query.tag === 'string') {
         if (!req.query.tag.match(/^[A-Za-z:_-]+$/)) {
-            errors.push("Unusal OSM key");
+            errors.push("Unusual OSM key");
         }
     } else {
         errors.push("OSM key is missing.");
