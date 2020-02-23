@@ -4,7 +4,9 @@ A little server daemon answering query‘s for [opening_hours][Key:opening_hours
 
 It works by querying the requested data from the [OverpassAPI][], then fed it to [opening_hours.js][oh-lib] to see if it can be evaluated.
 
-## Example query
+## `/api/oh_interpreter`
+
+### Example query
 
 http://openingh.openstreetmap.de/api/oh_interpreter?&tag=opening_hours&s=48.7785984&w=2.2257825&n=48.9165552&e=2.438069
 
@@ -13,7 +15,7 @@ http://openingh.openstreetmap.de/api/get_license
 http://openingh.openstreetmap.de/api/get_source
 
 <!-- Example response {{{ -->
-## Example response
+### Example response
 
 ```javascript
 {
@@ -59,13 +61,57 @@ http://openingh.openstreetmap.de/api/get_source
 ```
 <!-- }}} -->
 
-## Query parameters
+### Query parameters
 
-URL parm      | Defautl value      | Possible values and meaning
+URL parm      | Default value      | Possible values and meaning
 ------------- | -------------      | -------------
 s, w, n, e    | None, all required | [Bounding box](https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#All_data_in_a_bounding_box)
 tag           | None, required     | [Tag key](https://wiki.openstreetmap.org/wiki/Tags)
 filter        | 'error'            | error: errors and warnings, errorOnly: only errors, warnOnly: only warnings
+
+## `/api/validate`
+
+Validates a given `opening_hour` value.
+
+### Example `Mo-Su`
+```json5
+// curl 'localhost:3030/api/validate?value=Mo-Su'
+{
+    "value": "Mo-Su",
+    "pretty_value": "Mo-Su",
+    "warnings": [
+        "Mo-Su <--- (This rule is not very explicit because there is no time selector being used. Please add a time selector to this rule or use a comment to make it more explicit.)"
+    ]
+}
+```
+
+
+### Example `Mo-Fr 13-15`
+```json5
+// curl 'localhost:3030/api/validate?value=Mo-Fr+13-15'
+{
+    "value": "Mo-Fr 13-15",
+    "pretty_value": "Mo-Fr 13:00-15:00",
+    "warnings": [
+        "Mo-Fr 13-15 <--- (Time range without minutes specified. Not very explicit! Please use this syntax instead \"13:00-15:00\".)"
+    ]
+}
+```
+
+### Example `Mo-Suuu`
+```json5
+// curl 'localhost:3030/api/validate?value=Mo-Suuu'
+{
+    "value": "Mo-Suuu",
+    "errors": [
+        "Mo-S <--- (Unexpected token: \"-\" This means that the syntax is not valid at that point or it is currently not supported.) Mo-Suuu <--- (Bitte benutze die Schreibweise \",\" als Ersatz für \"u\".)"
+    ]
+}
+```
+
+### Query parameters
+* `value` for the value to be validated
+* all [configuration parameters](https://github.com/opening-hours/opening_hours.js/#library-api) supported by `opening_hours`, such as `mode`, `tag_key`, `map_value`, `warnings_severity`, `locale`, `additional_rule_separator`
 
 <!-- Security {{{ -->
 

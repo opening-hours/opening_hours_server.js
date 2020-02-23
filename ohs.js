@@ -259,6 +259,37 @@ app.get('/api/oh_interpreter', function(req, res) {
     }
 });
 
+app.get('/api/validate', function(req, res) {
+    const {
+        value,
+        locale,
+        mode,
+        warnings_severity,
+        tag_key,
+        map_value,
+        additional_rule_separator
+    } = req.query;
+    const nominatimJSON = {address: {country_code: 'xa'}};
+    const conf = {
+        locale,
+        tag_key,
+        mode: typeof mode === 'string' ? parseInt(mode, 10) : mode,
+        warnings_severity: typeof warnings_severity === 'string' ? parseInt(warnings_severity, 10) : warnings_severity,
+        map_value: map_value === true || map_value === '1' || map_value === 'true',
+        additional_rule_separator: additional_rule_separator !== false && additional_rule_separator !== '0' && additional_rule_separator !== 'false'
+    };
+    let oh, pretty_value, warnings, errors;
+    try {
+        oh = new opening_hours(value, nominatimJSON, conf);
+        pretty_value = oh.prettifyValue();
+        warnings = oh.getWarnings();
+    } catch (err) {
+        errors = [err];
+    }
+    const result = {value, pretty_value, warnings, errors};
+    res.send(result);
+});
+
 app.get('/api/get_license', function(req, res) {
     res.type('txt');
     res.send(fs.readFileSync('LICENSE'));
