@@ -75,7 +75,7 @@ Validates a given `opening_hour` value.
 
 ### Example `Mo-Su`
 ```json5
-// curl 'localhost:3030/api/validate?value=Mo-Su'
+// curl 'localhost:12355/api/validate?value=Mo-Su'
 {
     "value": "Mo-Su",
     "pretty_value": "Mo-Su",
@@ -88,7 +88,7 @@ Validates a given `opening_hour` value.
 
 ### Example `Mo-Fr 13-15`
 ```json5
-// curl 'localhost:3030/api/validate?value=Mo-Fr+13-15'
+// curl 'localhost:12355/api/validate?value=Mo-Fr+13-15'
 {
     "value": "Mo-Fr 13-15",
     "pretty_value": "Mo-Fr 13:00-15:00",
@@ -100,7 +100,7 @@ Validates a given `opening_hour` value.
 
 ### Example `Mo-Suuu`
 ```json5
-// curl 'localhost:3030/api/validate?value=Mo-Suuu'
+// curl 'localhost:12355/api/validate?value=Mo-Suuu'
 {
     "value": "Mo-Suuu",
     "errors": [
